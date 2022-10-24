@@ -3,6 +3,7 @@ package com.github.av.bytelegrambot.bot;
 import com.github.av.bytelegrambot.command.CommandContainer;
 import com.github.av.bytelegrambot.config.BotConfig;
 import com.github.av.bytelegrambot.service.BotMessageServiceImpl;
+import com.github.av.bytelegrambot.service.LocalizationServiceImpl;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -19,9 +20,12 @@ public class AvbyTelegramBot extends TelegramLongPollingBot {
 
     private final CommandContainer commandContainer;
 
-    public AvbyTelegramBot(BotConfig botConfig){
-        this.botConfig=botConfig;
-        this.commandContainer = new CommandContainer(new BotMessageServiceImpl(this));
+    private final LocalizationServiceImpl localizationService;
+
+    public AvbyTelegramBot(BotConfig botConfig, LocalizationServiceImpl localizationService){
+        this.botConfig = botConfig;
+        this.localizationService = localizationService;
+        this.commandContainer = new CommandContainer(new BotMessageServiceImpl(this), localizationService);
     }
 
     @Override

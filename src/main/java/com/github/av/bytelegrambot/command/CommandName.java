@@ -3,7 +3,8 @@ package com.github.av.bytelegrambot.command;
 public enum CommandName {
 
     START("/start"),
-    STOP("/stop");
+    STOP("/stop"),
+    LANG("/lang");
 
     private final String commandName;
 
