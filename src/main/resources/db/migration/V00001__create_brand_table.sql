@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS brand CASCADE ;
+
+CREATE TABLE brand(
+    id INTEGER PRIMARY KEY,
+    name VARCHAR(50)
+);
