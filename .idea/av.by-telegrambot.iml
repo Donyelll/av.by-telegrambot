@@ -17,7 +17,9 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
-        <datasource-mapping />
+        <datasource-mapping>
+          <factory-entry name="av.by-telegrambot" value="6d99aab7-eb1d-4585-938d-4fc39a46ebfc" />
+        </datasource-mapping>
         <naming-strategy-map />
       </configuration>
     </facet>

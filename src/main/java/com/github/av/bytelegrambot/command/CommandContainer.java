@@ -1,7 +1,6 @@
 package com.github.av.bytelegrambot.command;
 
 import com.github.av.bytelegrambot.service.BotMessageService;
-import com.github.av.bytelegrambot.service.LocalizationService;
 import com.github.av.bytelegrambot.service.LocalizationServiceImpl;
 import com.google.common.collect.ImmutableMap;
 
@@ -19,7 +18,7 @@ public class CommandContainer {
                 .put(STOP.getCommandName(), new StopCommand(botMessageService))
                 .put(LANG.getCommandName(), new LangCommand(botMessageService,localizationService))
                 .build();
-        unknownCommand = new UnknownCommand(botMessageService);
+        unknownCommand = new UnknownCommand(botMessageService, localizationService);
     }
 
     public Command retrieveCommand(String commandIdentifier){
