@@ -25,6 +25,11 @@ public class ModelServiceImpl implements ModelService{
     }
 
     @Override
+    public void deleteAll() {
+       modelRepository.deleteAll();
+    }
+
+    @Override
     public List<ModelEntity> getAllByBrand(int id) {
         return modelRepository.findAllByBrand_id(id);
     }

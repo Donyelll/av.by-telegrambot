@@ -11,6 +11,8 @@ public interface BrandService {
 
     void saveAll(List<BrandEntity> brandEntities);
 
+    void deleteAll();
+
     Optional<BrandEntity> getByName(String name);
 
     List<BrandEntity> getAllBrands();

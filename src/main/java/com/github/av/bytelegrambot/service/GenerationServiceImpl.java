@@ -30,6 +30,11 @@ public class GenerationServiceImpl implements GenerationService{
     }
 
     @Override
+    public void deleteAll() {
+        generationRepository.deleteAll();
+    }
+
+    @Override
     public List<GenerationEntity> getAllByModel(int id) {
         return generationRepository.findAllByModel_id(id);
     }

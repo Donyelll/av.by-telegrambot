@@ -1,6 +1,8 @@
 package com.github.av.bytelegrambot.bot;
 
 import com.github.av.bytelegrambot.AvbyApiClientImpl;
+import com.github.av.bytelegrambot.service.DatabaseUpdateService;
+import com.github.av.bytelegrambot.service.DatabaseUpdateServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -16,14 +18,12 @@ public class BotInitializer {
     AvbyTelegramBot bot;
 
     @Autowired
-    AvbyApiClientImpl avbyApiClient;
+    DatabaseUpdateService databaseUpdateService;
 
     @EventListener({ContextRefreshedEvent.class})
     public void init() throws TelegramApiException {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-        if(avbyApiClient.getCarLibraryService().getBrandService().getById(1).isEmpty()) {
-            avbyApiClient.initDB();
-        }
+
         try {
             telegramBotsApi.registerBot(bot);
         }catch (TelegramApiException e){

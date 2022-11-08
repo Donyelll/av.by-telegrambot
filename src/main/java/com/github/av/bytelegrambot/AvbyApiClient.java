@@ -10,7 +10,6 @@ public interface AvbyApiClient {
 
     String getAllAds(int brandId, int modelId, int generationId);
 
-    void initDB();
 
 
 }

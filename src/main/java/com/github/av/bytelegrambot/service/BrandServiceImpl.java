@@ -30,6 +30,11 @@ public class BrandServiceImpl implements BrandService{
     }
 
     @Override
+    public void deleteAll() {
+        brandRepository.deleteAll();
+    }
+
+    @Override
     public Optional<BrandEntity> getByName(String name) {
 
         return brandRepository.findFirstByNameIgnoreCase(name);

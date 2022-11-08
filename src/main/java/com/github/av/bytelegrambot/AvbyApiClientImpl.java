@@ -24,9 +24,7 @@ import java.util.regex.Pattern;
 @Setter
 public class AvbyApiClientImpl implements AvbyApiClient{
 
-    private final String BRANDS_PATH = "https://api.av.by/offer-types/cars/catalog/brand-items";
-    private final String MODELS_PATH = "https://api.av.by/offer-types/cars/catalog/brand-items/%d/models";
-    private final String GENERATIONS_PATH = "https://api.av.by/offer-types/cars/catalog/brand-items/%d/models/%d/generations";
+
     private final String BASE_ADVERTISEMENTS_PATH = "https://cars.av.by/filter?";
 
                 /*    %s = [brand, model, generation]   %d = id    */
@@ -34,13 +32,14 @@ public class AvbyApiClientImpl implements AvbyApiClient{
 
     private final String NO_ADS_FOUND_MESSAGE_KEY = "no_ads_found_message_key";
     private String requestPath;
-    private CarLibraryService carLibraryService;
+
     private final LocalizationService localizationService;
+    private final CarLibraryService carLibraryService;
     private String carArgs = "";
     private String state = "";
 
     @Autowired
-    public AvbyApiClientImpl(CarLibraryService carLibraryService, LocalizationService localizationService) {
+    public AvbyApiClientImpl(LocalizationService localizationService, CarLibraryService carLibraryService) {
         this.localizationService = localizationService;
         this.carLibraryService = carLibraryService;
     }
@@ -80,48 +79,5 @@ public class AvbyApiClientImpl implements AvbyApiClient{
         return localizationService.getMessage(NO_ADS_FOUND_MESSAGE_KEY);
     }
 
-    @Override
-    public void initDB() {
-        final RestTemplate restTemplate = new RestTemplate();
-        setRequestPath(BRANDS_PATH);
 
-        List<BrandEntity> brands = new ArrayList<>();
-        List<GenerationEntity> generations = new ArrayList<>();
-        List<GenerationEntity> generationsOfEachModel = new ArrayList<>();
-        List<ModelEntity> modelsOfEachBrand = new ArrayList<>();
-        List<ModelEntity> models = new ArrayList<>();
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            brands.addAll(mapper.readValue(restTemplate.getForObject(requestPath, String.class), new TypeReference<List<BrandEntity>>(){}));
-
-            for (BrandEntity brand: brands) {
-                setRequestPath(String.format(MODELS_PATH,brand.getId()));
-
-                modelsOfEachBrand.addAll(mapper.readValue(restTemplate.getForObject(requestPath, String.class), new TypeReference<List<ModelEntity>>(){}));
-
-                for (ModelEntity model: modelsOfEachBrand) {
-                    model.setBrand(brand);
-                    models.add(model);
-
-                    setRequestPath(String.format(GENERATIONS_PATH, brand.getId(), model.getId()));
-                    generationsOfEachModel.addAll(mapper.readValue(restTemplate.getForObject(requestPath, String.class), new TypeReference<List<GenerationEntity>>(){}));
-
-                    for (GenerationEntity generation: generationsOfEachModel) {
-                        generation.setBrand(brand);
-                        generation.setModel(model);
-                        generations.add(generation);
-                    }
-                    generationsOfEachModel.clear();
-                }
-                    modelsOfEachBrand.clear();
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        carLibraryService.getBrandService().saveAll(brands);
-        carLibraryService.getModelService().saveAll(models);
-        carLibraryService.getGenerationService().saveAll(generations);
-
-
-    }
 }

@@ -13,6 +13,8 @@ public interface ModelService {
 
     void saveAll(List<ModelEntity> modelEntities);
 
+    void deleteAll();
+
     Optional<ModelEntity> getByName(String name);
 
     List<ModelEntity> getAllByBrand(int id);
