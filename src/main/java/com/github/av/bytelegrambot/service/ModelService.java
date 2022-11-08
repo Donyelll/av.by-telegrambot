@@ -1,17 +1,21 @@
 package com.github.av.bytelegrambot.service;
 
-import com.github.av.bytelegrambot.repository.entity.Brand;
-import com.github.av.bytelegrambot.repository.entity.Model;
+import com.github.av.bytelegrambot.repository.entity.BrandEntity;
+import com.github.av.bytelegrambot.repository.entity.ModelEntity;
+
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ModelService {
 
-    void save(Model model);
+    void save(ModelEntity modelEntity);
 
-    Optional<Model> getByName(String name);
+    void saveAll(List<ModelEntity> modelEntities);
 
-    List<Model> getAllByBrand(int id);
+    Optional<ModelEntity> getByName(String name);
 
+    List<ModelEntity> getAllByBrand(int id);
+
+    List<ModelEntity> getAllModels();
 }

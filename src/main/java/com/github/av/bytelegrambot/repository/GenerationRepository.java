@@ -1,8 +1,7 @@
 package com.github.av.bytelegrambot.repository;
 
-import com.github.av.bytelegrambot.repository.entity.Brand;
-import com.github.av.bytelegrambot.repository.entity.Generation;
-import com.github.av.bytelegrambot.repository.entity.Model;
+import com.github.av.bytelegrambot.repository.entity.GenerationEntity;
+import com.github.av.bytelegrambot.repository.entity.ModelEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,10 +9,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface GenerationRepository extends JpaRepository<Generation,String> {
+public interface GenerationRepository extends JpaRepository<GenerationEntity,String> {
 
-    Optional<Generation> findByNameIs(String name);
+    Optional<GenerationEntity> findFirstByNameIgnoreCase(String name);
 
-    List<Generation> findAllByModel_id (int id);
+    List<GenerationEntity> findAllByModel_id (int id);
 
+    List<GenerationEntity> findAllByIdNotNull();
 }

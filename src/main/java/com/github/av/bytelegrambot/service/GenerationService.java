@@ -1,18 +1,20 @@
 package com.github.av.bytelegrambot.service;
 
-import com.github.av.bytelegrambot.repository.entity.Brand;
-import com.github.av.bytelegrambot.repository.entity.Generation;
-import com.github.av.bytelegrambot.repository.entity.Model;
+import com.github.av.bytelegrambot.repository.entity.GenerationEntity;
+import com.github.av.bytelegrambot.repository.entity.ModelEntity;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface GenerationService {
 
-    void save(Generation generation);
+    void save(GenerationEntity generationEntity);
+    void saveAll(List<GenerationEntity> generationEntities);
 
-    Optional<Generation> getByName(String name);
+    Optional<GenerationEntity> getByName(String name);
 
-    List<Generation> getAllByModel(int id);
+    List<GenerationEntity> getAllByModel(int id);
+
+    List<GenerationEntity> getAllGenerations();
 
 }

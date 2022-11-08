@@ -9,9 +9,14 @@ ______
 `•` AVBYTB-2: implemented Command pattern for telegram bot.
 
 `•` AVBYTB-6: implemented ability to change localization
-
+______
 ## 0.3.0-SNAPSHOT
 
 `•` AVBYTB-4: added repository level
+______
+## 0.4.0-SNAPSHOT
+
+`•` AVBYTB-3: implemented ability to view all ads of certain car brandEntity or model
+______
 
 

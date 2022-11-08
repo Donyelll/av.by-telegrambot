@@ -1,10 +1,8 @@
 package com.github.av.bytelegrambot.service;
 
 
-import com.github.av.bytelegrambot.repository.BrandRepository;
 import com.github.av.bytelegrambot.repository.GenerationRepository;
-import com.github.av.bytelegrambot.repository.entity.Brand;
-import com.github.av.bytelegrambot.repository.entity.Generation;
+import com.github.av.bytelegrambot.repository.entity.GenerationEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,24 +14,34 @@ public class GenerationServiceImpl implements GenerationService{
 
     final GenerationRepository generationRepository;
 
+    @Override
+    public void saveAll(List<GenerationEntity> generationEntities) {
+        generationRepository.saveAll(generationEntities);
+    }
+
     @Autowired
     public GenerationServiceImpl(GenerationRepository generationRepository) {
         this.generationRepository = generationRepository;
     }
 
     @Override
-    public void save(Generation generation) {
-        generationRepository.save(generation);
+    public void save(GenerationEntity generationEntity) {
+        generationRepository.save(generationEntity);
     }
 
     @Override
-    public List<Generation> getAllByModel(int id) {
+    public List<GenerationEntity> getAllByModel(int id) {
         return generationRepository.findAllByModel_id(id);
     }
 
     @Override
-    public Optional<Generation> getByName(String name) {
+    public List<GenerationEntity> getAllGenerations() {
+        return generationRepository.findAllByIdNotNull();
+    }
 
-        return generationRepository.findByNameIs(name);
+    @Override
+    public Optional<GenerationEntity> getByName(String name) {
+
+        return generationRepository.findFirstByNameIgnoreCase(name);
     }
 }
