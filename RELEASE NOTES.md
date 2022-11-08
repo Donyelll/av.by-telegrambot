@@ -4,7 +4,6 @@ ______
 
 `•` AVBYTB-1: added telegram bot to the project
 
-______
 ## 0.2.0-SNAPSHOT
 
 `•` AVBYTB-2: implemented Command pattern for telegram bot.
@@ -19,4 +18,5 @@ ______
 
 `•` AVBYTB-3: implemented ability to view all ads of certain car brandEntity or model
 ______
+
 
