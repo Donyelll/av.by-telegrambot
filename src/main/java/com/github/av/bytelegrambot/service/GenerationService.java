@@ -9,7 +9,10 @@ import java.util.Optional;
 public interface GenerationService {
 
     void save(GenerationEntity generationEntity);
+
     void saveAll(List<GenerationEntity> generationEntities);
+
+    void deleteAll();
 
     Optional<GenerationEntity> getByName(String name);
 

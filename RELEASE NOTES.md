@@ -16,7 +16,11 @@ ______
 ______
 ## 0.4.0-SNAPSHOT
 
-`•` AVBYTB-3: implemented ability to view all ads of certain car brandEntity or model
+`•` AVBYTB-3: implemented ability to view all ads of certain car brand or model
+______
+## 0.5.0-SNAPSHOT
+
+`•` AVBYTB-5: Implemented up-to-date car data receiving
 ______
 
 
