@@ -2,7 +2,6 @@ package com.github.av.bytelegrambot.command;
 
 import com.github.av.bytelegrambot.AvbyApiClientImpl;
 import com.github.av.bytelegrambot.repository.entity.BrandEntity;
-import com.github.av.bytelegrambot.repository.entity.CarLibrary;
 import com.github.av.bytelegrambot.repository.entity.ModelEntity;
 import com.github.av.bytelegrambot.service.BotMessageService;
 import com.github.av.bytelegrambot.service.CarLibraryService;
