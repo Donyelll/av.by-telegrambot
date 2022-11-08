@@ -1,10 +1,8 @@
 package com.github.av.bytelegrambot.service;
 
 
-import com.github.av.bytelegrambot.repository.BrandRepository;
 import com.github.av.bytelegrambot.repository.ModelRepository;
-import com.github.av.bytelegrambot.repository.entity.Brand;
-import com.github.av.bytelegrambot.repository.entity.Model;
+import com.github.av.bytelegrambot.repository.entity.ModelEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,18 +20,28 @@ public class ModelServiceImpl implements ModelService{
     }
 
     @Override
-    public void save(Model model) {
-        modelRepository.save(model);
+    public void save(ModelEntity modelEntity) {
+        modelRepository.save(modelEntity);
     }
 
     @Override
-    public List<Model> getAllByBrand(int id) {
+    public List<ModelEntity> getAllByBrand(int id) {
         return modelRepository.findAllByBrand_id(id);
     }
 
     @Override
-    public Optional<Model> getByName(String name) {
+    public Optional<ModelEntity> getByName(String name) {
 
-        return modelRepository.findByNameIs(name);
+        return modelRepository.findFirstByNameIgnoreCase(name);
+    }
+
+    @Override
+    public void saveAll(List<ModelEntity> modelEntities) {
+        modelRepository.saveAll(modelEntities);
+    }
+
+    @Override
+    public List<ModelEntity> getAllModels() {
+        return modelRepository.findAllByIdNotNull();
     }
 }

@@ -4,7 +4,12 @@ public enum CommandName {
 
     START("/start"),
     STOP("/stop"),
-    LANG("/lang");
+    SEARCH("/search"),
+    NOT_A_COMMAND("foo"),
+    LANG("/lang"),
+    BRANDS("/brands"),
+    HELP("/help"),
+    BACK("/back");
 
     private final String commandName;
 

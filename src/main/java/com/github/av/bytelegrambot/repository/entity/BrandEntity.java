@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "brand")
-public class Brand {
+public class BrandEntity {
 
     @Id
     @Column(name = "id")
@@ -19,8 +19,8 @@ public class Brand {
     private String name;
 
     @OneToMany(mappedBy = "brand")
-    private List<Model> models;
+    private List<ModelEntity> models;
 
     @OneToMany(mappedBy = "brand")
-    private List<Generation> generations;
+    private List<GenerationEntity> generations;
 }
