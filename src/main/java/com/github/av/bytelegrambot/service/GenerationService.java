@@ -14,6 +14,8 @@ public interface GenerationService {
 
     void deleteAll();
 
+    Optional<GenerationEntity> getById(int id);
+
     Optional<GenerationEntity> getByName(String name);
 
     List<GenerationEntity> getAllByModel(int id);

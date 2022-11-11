@@ -15,9 +15,12 @@ public class DatabaseUpdateJob {
         this.databaseUpdateService = databaseUpdateService;
     }
 
+
     // every 24 hours
     @Scheduled(fixedRateString = "${bot.databaseUpdateFixedRate}")
     public void updateDatabase(){
         databaseUpdateService.updateDB();
     }
+
+
 }

@@ -17,9 +17,6 @@ public class BotInitializer {
     @Autowired
     AvbyTelegramBot bot;
 
-    @Autowired
-    DatabaseUpdateService databaseUpdateService;
-
     @EventListener({ContextRefreshedEvent.class})
     public void init() throws TelegramApiException {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);

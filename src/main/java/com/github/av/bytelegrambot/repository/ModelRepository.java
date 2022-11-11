@@ -16,4 +16,5 @@ public interface ModelRepository extends JpaRepository<ModelEntity,String> {
 
     List<ModelEntity> findAllByIdNotNull();
 
+    Optional<ModelEntity> findById(int id);
 }
