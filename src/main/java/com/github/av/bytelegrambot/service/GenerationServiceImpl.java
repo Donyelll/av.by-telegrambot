@@ -35,6 +35,11 @@ public class GenerationServiceImpl implements GenerationService{
     }
 
     @Override
+    public Optional<GenerationEntity> getById(int id) {
+        return generationRepository.findById(id);
+    }
+
+    @Override
     public List<GenerationEntity> getAllByModel(int id) {
         return generationRepository.findAllByModel_id(id);
     }
@@ -46,7 +51,8 @@ public class GenerationServiceImpl implements GenerationService{
 
     @Override
     public Optional<GenerationEntity> getByName(String name) {
-
-        return generationRepository.findFirstByNameIgnoreCase(name);
+        return generationRepository.findByNameIgnoreCase(name);
     }
 }
+
+

@@ -11,9 +11,11 @@ import java.util.Optional;
 @Repository
 public interface GenerationRepository extends JpaRepository<GenerationEntity,String> {
 
-    Optional<GenerationEntity> findFirstByNameIgnoreCase(String name);
+    Optional<GenerationEntity> findByNameIgnoreCase(String name);
 
     List<GenerationEntity> findAllByModel_id (int id);
 
     List<GenerationEntity> findAllByIdNotNull();
+
+    Optional<GenerationEntity> findById(int id);
 }

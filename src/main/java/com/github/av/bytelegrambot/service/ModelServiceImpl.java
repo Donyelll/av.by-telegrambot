@@ -41,6 +41,11 @@ public class ModelServiceImpl implements ModelService{
     }
 
     @Override
+    public Optional<ModelEntity> getById(int id) {
+        return modelRepository.findById(id);
+    }
+
+    @Override
     public void saveAll(List<ModelEntity> modelEntities) {
         modelRepository.saveAll(modelEntities);
     }

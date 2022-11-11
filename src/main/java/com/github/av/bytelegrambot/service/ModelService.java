@@ -15,6 +15,8 @@ public interface ModelService {
 
     void deleteAll();
 
+    Optional<ModelEntity> getById(int id);
+
     Optional<ModelEntity> getByName(String name);
 
     List<ModelEntity> getAllByBrand(int id);

@@ -22,5 +22,9 @@ ______
 
 `•` AVBYTB-5: Implemented up-to-date car data receiving
 ______
+## 0.5.2-SNAPSHOT
 
+`•` Bugfix: Bot now show all ads, not only first 25
 
+`•` Bugfix: Made search process more clear and obvious (only by numbers, without any names)
+______

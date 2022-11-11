@@ -25,7 +25,7 @@ public class NotACommand implements Command{
 
     private final BotMessageService botMessageService;
 
-    private AvbyApiClientImpl avbyApiClient;
+    private final AvbyApiClientImpl avbyApiClient;
 
     private Map<Integer, BrandEntity> brandMap = new HashMap<>();
     private Map<Integer, ModelEntity> modelMap = new HashMap<>();
@@ -46,11 +46,6 @@ public class NotACommand implements Command{
         this.localizationService = localizationService;
         this.avbyApiClient = avbyApiClient;
 
-        List<BrandEntity> brands = avbyApiClient.getCarLibraryService().getBrandService().getAllBrands();
-        int i=1;
-        for (BrandEntity brand: brands) {
-            brandMap.put(i++, brand);
-        }
     }
 
     @Override
@@ -68,10 +63,18 @@ public class NotACommand implements Command{
         } else if(state.equals("generation-exception")){
             botMessageService.sendMessage(update.getMessage().getChatId().toString(),localizationService.getMessage(NO_SUCH_GENERATION_MESSAGE_KEY));
         } else if(state.equals("search")){
-            avbyApiClient.setCarArgs(String.valueOf(avbyApiClient.getCarLibraryService().getBrandService().getByName(update.getMessage().getText()).get().getId()));
+
+            List<BrandEntity> brands = avbyApiClient.getCarLibraryService().getBrandService().getAllBrands();
+            int i=1;
+            for (BrandEntity brand: brands) {
+                brandMap.put(i++, brand);
+            }
+            avbyApiClient.setCarArgs("");
+            int brandId = avbyApiClient.getCarLibraryService().getBrandService().getById(brandMap.get(Integer.parseInt(update.getMessage().getText())).getId()).get().getId();
+            avbyApiClient.setCarArgs(String.valueOf(brandId));
             StringBuilder builder = new StringBuilder();
-            List<ModelEntity> models = avbyApiClient.getCarLibraryService().getModelService().getAllByBrand(Integer.parseInt(avbyApiClient.getCarArgs()));
-            int i = 1;
+            List<ModelEntity> models = avbyApiClient.getCarLibraryService().getModelService().getAllByBrand(brandId);
+            i = 1;
             for (ModelEntity model : models) {
                 modelMap.put(i,model);
                 builder.append(i++).append(". ").append(model.getName()).append("\n");
@@ -80,7 +83,7 @@ public class NotACommand implements Command{
             botMessageService.sendMessage(update.getMessage().getChatId().toString(), builder.toString());
 
         } else if (state.equals("brand")){
-            int modelId = avbyApiClient.getCarLibraryService().getModelService().getByName(modelMap.get(Integer.parseInt(update.getMessage().getText())).getName()).get().getId();
+            int modelId = avbyApiClient.getCarLibraryService().getModelService().getById(modelMap.get(Integer.parseInt(update.getMessage().getText())).getId()).get().getId();
             avbyApiClient.setCarArgs(avbyApiClient.getCarArgs() + " " + modelId);
             StringBuilder builder = new StringBuilder();
             List<GenerationEntity> generations = avbyApiClient.getCarLibraryService().getGenerationService().getAllByModel(modelId);
@@ -92,11 +95,14 @@ public class NotACommand implements Command{
             builder.append(localizationService.getMessage(BACK_COMMAND_DESCRIPTION_MESSAGE_KEY));
             botMessageService.sendMessage(update.getMessage().getChatId().toString(), builder.toString());
         } else if (state.equals("model")){
-            int genId = avbyApiClient.getCarLibraryService().getGenerationService().getByName(generationMap.get(Integer.parseInt(update.getMessage().getText())).getName()).get().getId();
+            int genId = avbyApiClient.getCarLibraryService().getGenerationService().getById(generationMap.get(Integer.parseInt(update.getMessage().getText())).getId()).get().getId();
             avbyApiClient.setCarArgs(avbyApiClient.getCarArgs() + " " + genId);
             String[] carArgsArr = avbyApiClient.getCarArgs().split(" ");
-            String advertisements = avbyApiClient.getAllAds(Integer.parseInt(carArgsArr[0]),Integer.parseInt(carArgsArr[1]),Integer.parseInt(carArgsArr[2]));
-            botMessageService.sendMessage(update.getMessage().getChatId().toString(), advertisements);
+            avbyApiClient.getAllAds(Integer.parseInt(carArgsArr[0]),Integer.parseInt(carArgsArr[1]),Integer.parseInt(carArgsArr[2]));
+            for (String ads: avbyApiClient.getAdsList()) {
+                botMessageService.sendMessage(update.getMessage().getChatId().toString(), ads);
+            }
+
         }
     }
 }
