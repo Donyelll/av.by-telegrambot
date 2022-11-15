@@ -28,3 +28,8 @@ ______
 
 `•` Bugfix: Made search process more clear and obvious (only by numbers, without any names)
 ______
+## 0.6.0-SNAPSHOT
+
+`•` AVBYTB-8: Implemented ability to show different line charts.
+
+______

@@ -30,7 +30,7 @@ public class NotACommand implements Command{
     private Map<Integer, BrandEntity> brandMap = new HashMap<>();
     private Map<Integer, ModelEntity> modelMap = new HashMap<>();
     private Map<Integer, GenerationEntity> generationMap = new HashMap<>();
-
+    
 
     private final LocalizationService localizationService;
 
@@ -39,6 +39,8 @@ public class NotACommand implements Command{
     private static final String NO_SUCH_BRAND_MESSAGE_KEY = "no_such_brand_message";
     private static final String NO_SUCH_MODEL_MESSAGE_KEY = "no_such_model_message";
     private static final String NO_SUCH_GENERATION_MESSAGE_KEY = "no_such_generation_message";
+    private static final String SHOW_LINKS_AND_CHARTS_MESSAGE_KEY = "show_links_and_charts_message";
+
 
     @Autowired
     public NotACommand(BotMessageService botMessageService, LocalizationService localizationService, AvbyApiClientImpl avbyApiClient) {
@@ -98,11 +100,13 @@ public class NotACommand implements Command{
             int genId = avbyApiClient.getCarLibraryService().getGenerationService().getById(generationMap.get(Integer.parseInt(update.getMessage().getText())).getId()).get().getId();
             avbyApiClient.setCarArgs(avbyApiClient.getCarArgs() + " " + genId);
             String[] carArgsArr = avbyApiClient.getCarArgs().split(" ");
-            avbyApiClient.getAllAds(Integer.parseInt(carArgsArr[0]),Integer.parseInt(carArgsArr[1]),Integer.parseInt(carArgsArr[2]));
-            for (String ads: avbyApiClient.getAdsList()) {
-                botMessageService.sendMessage(update.getMessage().getChatId().toString(), ads);
-            }
+            avbyApiClient.getAllAdsLinks(Integer.parseInt(carArgsArr[0]),Integer.parseInt(carArgsArr[1]),Integer.parseInt(carArgsArr[2]));
 
+            if(avbyApiClient.getAdsList().get(0).equals(localizationService.getMessage("no_ads_found_message_key"))) {
+                botMessageService.sendMessage(update.getMessage().getChatId().toString(), localizationService.getMessage("no_ads_found_message_key"));
+            }else{
+                botMessageService.sendMessage(update.getMessage().getChatId().toString(), String.format(localizationService.getMessage(SHOW_LINKS_AND_CHARTS_MESSAGE_KEY), avbyApiClient.getTotalAdsCount()));
+            }
         }
     }
 }
