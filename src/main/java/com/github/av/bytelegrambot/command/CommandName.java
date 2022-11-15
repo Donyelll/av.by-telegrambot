@@ -9,6 +9,8 @@ public enum CommandName {
     LANG("/lang"),
     BRANDS("/brands"),
     HELP("/help"),
+    LINKS("/links"),
+    CHARTS("/charts"),
     BACK("/back");
 
     private final String commandName;

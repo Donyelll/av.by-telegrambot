@@ -24,6 +24,8 @@ public class CommandContainer {
                 .put(BRANDS.getCommandName(), new BrandsCommand(botMessageService, avbyApiClient))
                 .put(SEARCH.getCommandName(), new SearchCommand(botMessageService, localizationService))
                 .put(BACK.getCommandName(), new BackCommand(botMessageService, localizationService, avbyApiClient))
+                .put(LINKS.getCommandName(), new LinksCommand(botMessageService, localizationService, avbyApiClient))
+                .put(CHARTS.getCommandName(), new ChartsCommand(botMessageService, localizationService, avbyApiClient))
                 .put(HELP.getCommandName(), new HelpCommand(botMessageService,localizationService))
                 .build();
         unknownCommand = new UnknownCommand(botMessageService, localizationService);

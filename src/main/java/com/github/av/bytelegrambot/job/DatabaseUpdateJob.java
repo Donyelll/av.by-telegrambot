@@ -17,10 +17,10 @@ public class DatabaseUpdateJob {
 
 
     // every 24 hours
-    @Scheduled(fixedRateString = "${bot.databaseUpdateFixedRate}")
-    public void updateDatabase(){
-        databaseUpdateService.updateDB();
-    }
+//    @Scheduled(fixedRateString = "${bot.databaseUpdateFixedRate}")
+//    public void updateDatabase(){
+//        databaseUpdateService.updateDB();
+//    }
 
 
 }
